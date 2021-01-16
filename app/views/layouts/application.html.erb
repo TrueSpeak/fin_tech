@@ -11,6 +11,21 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="container" style="height: 900px">
+      <br>
+      <div>
+        <% if signed_in? %>
+          <%= current_user.email %>
+          <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
+        <% else %>
+          <%= link_to 'Sign in', new_user_session_path, class: 'btn btn-success' %>
+          <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-warning' %>
+        <% end %>
+      </div>
+      <%= yield %>
+    </div>
+  <footer style="background: black; color: white">
+     <p>Created by truesspeak</p>
+  </footer>
   </body>
 </html>
