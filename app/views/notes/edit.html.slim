@@ -1,0 +1,17 @@
+h1 New Note
+= form_with model: @note, local: true do |form|
+  - if @note.errors.present?
+    - @note.errors.full_messages.each do |message|
+      = message
+  br
+  = form.label :title
+  = form.text_field :title, class: 'form-control'
+  br
+  = form.label :description
+  = form.text_area :description, class: 'form-control'
+  br
+  = form.label 'Make this Note private?'
+  span style="padding-left: 10px"
+    = form.check_box :private_note_value
+  br
+  = form.submit 'create note', class: 'btn btn-success'

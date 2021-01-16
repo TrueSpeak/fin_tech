@@ -1,0 +1,11 @@
+h1 Note
+= @note.title
+- if @note.private_note == true
+    span style="margin-left: 10px" class="btn btn-dark btn-sm"
+      = "PRIVATE"
+p= @note.description
+br
+- if @note.user == current_user
+  = link_to 'Edit Note', edit_note_path(@note), class: 'btn btn-outline-warning'
+  span style="padding-left: 5px"
+    = link_to 'Delete Note', note_path(@note), method: :delete, class: 'btn btn-outline-danger'

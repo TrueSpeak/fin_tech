@@ -1,0 +1,9 @@
+h1 All Notes
+- @notes.each do |note|
+  = note.user.email
+  span style="padding-left: 10px"
+    = note.title
+  span style="padding-left: 10px"
+    = link_to 'show', note_path(note), class: 'btn btn-success btn-sm'
+  br
+  br
