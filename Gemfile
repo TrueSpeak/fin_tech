@@ -22,7 +22,7 @@ gem 'jquery-rails'
 gem 'pg', '~> 1.2', '>= 1.2.3'
 gem 'uglifier'
 gem 'coffee-rails'
-gem 'pry'
+gem 'pry-rails'
 #
 
 # Reduces boot times through caching; required in config/boot.rb

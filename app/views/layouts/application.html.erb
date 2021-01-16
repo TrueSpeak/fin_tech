@@ -16,12 +16,20 @@
       <div>
         <% if signed_in? %>
           <%= current_user.email %>
-          <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
+          &nbsp
+          <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'btn btn-danger btn-sm' %>
+          <br>
+          <div style="margin-top: 5px">
+            <%= link_to 'Notes', notes_path, class: 'btn btn-primary btn-sm' %>
+            <%= link_to 'New Note', new_note_path, class: 'btn btn-primary btn-sm' %>
+          </div>
         <% else %>
-          <%= link_to 'Sign in', new_user_session_path, class: 'btn btn-success' %>
-          <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-warning' %>
+          <%= link_to 'Sign in', new_user_session_path, class: 'btn btn-success btn-sm' %>
+          <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-warning btn-sm' %>
         <% end %>
       </div>
+      <br>
+      <%= render 'shared/flash' %>
       <%= yield %>
     </div>
   <footer style="background: black; color: white">

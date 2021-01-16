@@ -10,10 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_16_101914) do
+ActiveRecord::Schema.define(version: 2021_01_16_111948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "notes", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "description", null: false
+    t.boolean "private_note", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "stocks", force: :cascade do |t|
+    t.string "type", default: "", null: false
+    t.integer "dividends", default: 0, null: false
+    t.integer "size", default: 0, null: false
+    t.integer "change_per_year", default: 0, null: false
+    t.integer "market_capitalization", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
