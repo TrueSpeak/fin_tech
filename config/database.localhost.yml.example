@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: <%= ENV['POSTGRES_HOST'] || 'localhost' %>
+  port: <%= ENV['POSTGRES_PORT'] || 5432 %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV['POSTGRES_USER'] || 'postgres' %>
+  password: <%= 'password' %>
+
+development:
+  <<: *default
+  database: fin_tech_development
+
+test:
+  <<: *default
+  database: fin_tech_test
+
+production:
+  <<: *default
+  database: fin_tech_production
