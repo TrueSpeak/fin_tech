@@ -1,5 +1,4 @@
 class NotesController < ApplicationController
-
   before_action :authenticate?
   before_action :set_note, only: [:show, :update, :edit, :destroy]
   before_action :can_write?, only: [:edit, :update, :destroy]
@@ -53,12 +52,6 @@ class NotesController < ApplicationController
     return @note if @note.private_note == true && @note.user == current_user
 
     redirect_to notes_path, alert: 'Access denied. It is private Note'
-  end
-
-  def authenticate?
-    return if signed_in?
-
-    redirect_to root_path, alert: 'Access denied. You need to authorized'
   end
 
   def note_params

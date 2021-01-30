@@ -1,0 +1,11 @@
+h1 All Stocks
+- @stocks.each do |stock|
+  div class="stock_#{stock.id}"
+    span style="font: Bold Italic 24px Verdana; color: blue"
+      = stock.ticker
+    span style="padding-left: 10px; font: Bold 24px Verdana"
+      = stock.prices.last.value
+    span style="padding-left: 10px"
+      = link_to 'show', stock_path(stock), class: 'btn btn-success btn-sm'
+    br
+    br

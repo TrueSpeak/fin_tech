@@ -1,0 +1,19 @@
+h1= @stock.ticker
+br
+h3= "Current price: #{@stock.prices.last.value}"
+br
+= "Open: #{@stock.open}"
+br
+= "Day High: #{@stock.day_high}"
+br
+= "Day Low: #{@stock.day_low}"
+br
+= "Previous Close: #{@stock.prev_close}"
+br
+= "Market Capitalization: #{@stock.market_capitalization}"
+br
+= "Stock size: #{@stock.size}"
+br
+= "Dividends: #{@stock.dividends}"
+br
+= "Change per last year: #{@stock.change_per_year}"

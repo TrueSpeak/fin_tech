@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :price do
-    stock { nil }
+    stock
     value { "MyString" }
     completed { false }
   end

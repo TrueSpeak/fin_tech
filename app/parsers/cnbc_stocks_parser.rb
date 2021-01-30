@@ -5,7 +5,7 @@ class CnbcStocksParser
     if Rails.env.include?('development')
       doc = Nokogiri::HTML(RestClient.get("https://www.cnbc.com/quotes/#{ticker}"))
     else
-      doc = Nokogiri::HTML(File.open('spec/files/test_cnbc.html'))
+      doc = Nokogiri::HTML(File.open("spec/files/#{ticker}.html"))
     end
     @ticker = ticker
     @stock_values = doc.search("li.Summary-stat")
