@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_16_111948) do
+ActiveRecord::Schema.define(version: 2021_01_30_151406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,12 +25,25 @@ ActiveRecord::Schema.define(version: 2021_01_16_111948) do
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
+  create_table "prices", force: :cascade do |t|
+    t.bigint "stock_id", null: false
+    t.string "value", null: false
+    t.boolean "completed", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["stock_id"], name: "index_prices_on_stock_id"
+  end
+
   create_table "stocks", force: :cascade do |t|
-    t.string "type", default: "", null: false
-    t.integer "dividends", default: 0, null: false
-    t.integer "size", default: 0, null: false
-    t.integer "change_per_year", default: 0, null: false
-    t.integer "market_capitalization", default: 0, null: false
+    t.string "ticker", null: false
+    t.string "open", null: false
+    t.string "day_high", null: false
+    t.string "day_low", null: false
+    t.string "prev_close", null: false
+    t.string "market_capitalization", null: false
+    t.string "size", null: false
+    t.string "dividends", null: false
+    t.string "change_per_year", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -47,4 +60,5 @@ ActiveRecord::Schema.define(version: 2021_01_16_111948) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "prices", "stocks"
 end

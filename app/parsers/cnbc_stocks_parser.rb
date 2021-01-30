@@ -1,0 +1,37 @@
+class CnbcStocksParser
+  attr_reader :ticker, :stock_values, :current_price
+
+  def initialize(ticker)
+    if Rails.env.include?('development')
+      doc = Nokogiri::HTML(RestClient.get("https://www.cnbc.com/quotes/#{ticker}"))
+    else
+      doc = Nokogiri::HTML(File.open('spec/files/test_cnbc.html'))
+    end
+    @ticker = ticker
+    @stock_values = doc.search("li.Summary-stat")
+    @current_price = doc.search("span.QuoteStrip-lastPrice")[0].children.text
+  end
+
+  def call
+    return if Stock.find_by(ticker: ticker).present?
+
+    new_stock = Stock.new(
+      ticker: ticker,
+      open: stock_values[0].children[1].children.text,
+      day_high: stock_values[1].children[1].children.text,
+      day_low: stock_values[2].children[1].children.text,
+      prev_close: stock_values[3].children[1].children.text,
+      market_capitalization: stock_values[8].children[1].children.text,
+      size: stock_values[9].children[1].children.text,
+      dividends: stock_values[11].children[1].children.text,
+      change_per_year: stock_values[14].children[1].children.text,
+    )
+
+    if new_stock.valid?
+      ActiveRecord::Base.transaction do
+        new_stock.save
+        new_stock.prices.create(value: current_price)
+      end
+    end
+  end
+end

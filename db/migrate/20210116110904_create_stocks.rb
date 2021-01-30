@@ -1,11 +1,15 @@
 class CreateStocks < ActiveRecord::Migration[6.1]
   def change
     create_table :stocks do |t|
-      t.string :type, default: '', null: false
-      t.integer :dividends, default: 0, null: false
-      t.integer :size, default: 0, null: false
-      t.integer :change_per_year, default: 0, null: false
-      t.integer :market_capitalization, default: 0, null: false
+      t.string :ticker, null: false
+      t.string :open, null: false
+      t.string :day_high, null: false
+      t.string :day_low, null: false
+      t.string :prev_close, null: false
+      t.string :market_capitalization, null: false
+      t.string :size, null: false
+      t.string :dividends, null: false
+      t.string :change_per_year, null: false
 
       t.timestamps
     end

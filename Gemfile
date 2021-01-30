@@ -18,13 +18,15 @@ gem 'bootstrap', '~> 4.3.1'
 gem 'autoprefixer-rails'
 gem 'mini_racer'
 gem 'devise'
+gem 'open-uri', '~> 0.1.0'
+gem 'rest-client', '~> 2.1'
 gem 'jquery-rails'
 gem 'pg', '~> 1.2', '>= 1.2.3'
 gem 'uglifier'
 gem 'coffee-rails'
 gem 'pry-rails'
-#
-
+#doc.css('body div.wrapper').css('section#leftColumn').at('div.clear.overviewDataTable.overviewDataTableWithTooltip').at('div.first.inlineblock').at('span.float_lang_base_2.bold').children.text
+#doc.search('td.symbol.left.bold.elp').at('a').attributes['href'].value
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
