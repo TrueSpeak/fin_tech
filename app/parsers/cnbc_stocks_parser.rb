@@ -2,7 +2,7 @@ class CnbcStocksParser
   attr_reader :ticker, :stock_values, :current_price
 
   def initialize(ticker)
-    if Rails.env.include?('development')
+    if Rails.env.include?('development') || Rails.env.include?('production')
       doc = Nokogiri::HTML(RestClient.get("https://www.cnbc.com/quotes/#{ticker}"))
     else
       doc = Nokogiri::HTML(File.open("spec/files/#{ticker}.html"))
@@ -13,9 +13,15 @@ class CnbcStocksParser
   end
 
   def call
-    return if Stock.find_by(ticker: ticker).present?
+    current_stock = Stock.find_by(ticker: ticker)
+    update_stock(current_stock) if current_stock.present?
+    save_or_raise_exception(new_stock)
+  end
 
-    new_stock = Stock.new(
+  private
+
+  def new_stock
+    Stock.new(
       ticker: ticker,
       open: stock_values[0].children[1].children.text,
       day_high: stock_values[1].children[1].children.text,
@@ -26,12 +32,20 @@ class CnbcStocksParser
       dividends: stock_values[11].children[1].children.text,
       change_per_year: stock_values[14].children[1].children.text,
     )
+  end
 
+  def update_stock(current_stock)
+    current_stock.prices.last.update(value: current_price, completed: true)
+  end
+
+  def save_or_raise_exception(new_stock)
     if new_stock.valid?
       ActiveRecord::Base.transaction do
         new_stock.save
         new_stock.prices.create(value: current_price)
       end
+    else
+      raise ActiveModel::ValidationError
     end
   end
 end
