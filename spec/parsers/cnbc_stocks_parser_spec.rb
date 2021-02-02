@@ -44,4 +44,15 @@ RSpec.describe CnbcStocksParser do
         to eq(price_values.merge(stock_id: Stock.last.id).stringify_keys)
     end
   end
+
+  context 'when entity created and parser update attributes' do
+    let!(:stock_for_update) { create(:stock, ticker: 'AAPL') }
+    let!(:price_for_stock) { create(:price, stock: stock_for_update) }
+
+    before { parser.call }
+
+    it 'try to update AAPL stock' do
+      expect(Stock.last.updated_at).to_not eq(stock_for_update.updated_at)
+    end
+  end
 end
