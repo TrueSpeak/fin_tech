@@ -13,7 +13,7 @@ class CnbcStocksParser
   end
 
   def call
-    update_stock if Stock.exists?(ticker: ticker)
+    update_price if Stock.exists?(ticker: ticker)
     save_or_raise_exception(new_stock)
   end
 
@@ -33,7 +33,7 @@ class CnbcStocksParser
     )
   end
 
-  def update_stock
+  def update_price
     Stock.find_by(ticker: ticker).prices.last.update(value: current_price, completed: true)
   end
 
