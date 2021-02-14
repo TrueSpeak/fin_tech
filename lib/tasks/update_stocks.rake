@@ -4,7 +4,7 @@ namespace :stocks do
   task autoupdate: :environment do
     tickers = Stock.all.pluck(:ticker)
     tickers.each do |ticker|
-      CnbcStocksParser.new(ticker)
+      CnbcStocksParser.new(ticker).call
     end
   end
 end
