@@ -24,6 +24,9 @@ gem 'pg', '~> 1.2', '>= 1.2.3'
 gem 'uglifier'
 gem 'coffee-rails'
 gem 'pry-rails'
+gem 'sidekiq', '~> 6.1.3'
+gem 'whenever', '~> 1.0'
+gem 'rest-client', '~> 2.1.0 '
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
