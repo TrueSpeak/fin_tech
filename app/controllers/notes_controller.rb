@@ -1,14 +1,15 @@
+# frozen_string_literal: true
+
 class NotesController < ApplicationController
-  before_action :authenticate?
-  before_action :set_note, only: [:show, :update, :edit, :destroy]
-  before_action :can_write?, only: [:edit, :update, :destroy]
+  before_action :authenticate!
+  before_action :set_note, only: %i[show update edit destroy]
+  before_action :can_write?, only: %i[edit update destroy]
 
   def index
     @notes = Note.all.where(private_note: false).or(Note.all.where(private_note: true, user: current_user))
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @note = current_user.notes.new
@@ -31,8 +32,7 @@ class NotesController < ApplicationController
     redirect_to notes_path
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     private_note_value = true if params[:note][:private_note_value] == '1'

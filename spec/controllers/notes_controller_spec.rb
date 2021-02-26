@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe NotesController, type: :controller do
   let!(:user) { create(:user) }
   let!(:another_user) { create(:user) }
 
-  describe "GET #show" do
+  describe 'GET #show' do
     let!(:note) { create(:note, user: user) }
 
-    context "when guest tries to get show template" do
+    context 'when guest tries to get show template' do
       before do
         get :show, params: { id: note.id }
       end
@@ -17,7 +19,7 @@ RSpec.describe NotesController, type: :controller do
       end
     end
 
-    context "when owner tries to get show template" do
+    context 'when owner tries to get show template' do
       before do
         login(user)
         get :show, params: { id: note.id }
@@ -28,7 +30,7 @@ RSpec.describe NotesController, type: :controller do
       end
     end
 
-    context "when not owner tries to get show template" do
+    context 'when not owner tries to get show template' do
       before do
         login(another_user)
         get :show, params: { id: note.id }
@@ -52,11 +54,10 @@ RSpec.describe NotesController, type: :controller do
     end
   end
 
-  describe "GET #index" do
+  describe 'GET #index' do
     let!(:notes) { create_list(:note, 3, user: user) }
 
-
-    context "when guest tries to get index template" do
+    context 'when guest tries to get index template' do
       before do
         get :index
       end
@@ -66,7 +67,7 @@ RSpec.describe NotesController, type: :controller do
       end
     end
 
-    context "when authenticated user tries to get index template" do
+    context 'when authenticated user tries to get index template' do
       before do
         login(user)
         get :index
@@ -82,11 +83,10 @@ RSpec.describe NotesController, type: :controller do
     end
   end
 
-  describe "GET #edit" do
+  describe 'GET #edit' do
     let!(:note) { create(:note, user: user) }
 
-
-    context "when guest tries to get edit template" do
+    context 'when guest tries to get edit template' do
       before do
         get :edit, params: { id: note.id }
       end
@@ -96,7 +96,7 @@ RSpec.describe NotesController, type: :controller do
       end
     end
 
-    context "when owner tries to get edit template" do
+    context 'when owner tries to get edit template' do
       before do
         login(user)
         get :edit, params: { id: note.id }
@@ -107,7 +107,7 @@ RSpec.describe NotesController, type: :controller do
       end
     end
 
-    context "when not owner tries to get edit template" do
+    context 'when not owner tries to get edit template' do
       before do
         login(another_user)
         get :edit, params: { id: note.id }
@@ -119,7 +119,7 @@ RSpec.describe NotesController, type: :controller do
     end
   end
 
-  describe "POST #create" do
+  describe 'POST #create' do
     context 'guest' do
       it 'tries to create a new note' do
         expect do
@@ -155,7 +155,7 @@ RSpec.describe NotesController, type: :controller do
     end
   end
 
-  describe "GET #new" do
+  describe 'GET #new' do
     context 'guest' do
       it 'redirect after create note' do
         get :new
@@ -172,7 +172,7 @@ RSpec.describe NotesController, type: :controller do
     end
   end
 
-  describe "PATCH #update" do
+  describe 'PATCH #update' do
     let!(:note) { create(:note, user: user) }
 
     context 'guest' do
@@ -221,7 +221,7 @@ RSpec.describe NotesController, type: :controller do
     end
   end
 
-  describe "DELETE #destroy" do
+  describe 'DELETE #destroy' do
     let!(:note) { create(:note, user: user) }
 
     context 'guest' do

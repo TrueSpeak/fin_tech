@@ -1,2 +1,3 @@
-- flash.each do |key, message|
-  h4= message
+div class="flash_messages"
+  - flash.each do |key, message|
+    h4= message

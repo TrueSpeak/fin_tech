@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 feature 'User can see stock' do
@@ -28,7 +30,9 @@ feature 'User can see stock' do
   context 'when guest' do
     scenario 'try to see stock info' do
       visit stock_path(stock)
-      expect(page).to have_content 'Access denied. You need to authorized'
+      within '.flash_messages' do
+        expect(page).to have_content 'Access denied. You need to authorize'
+      end
     end
   end
 end

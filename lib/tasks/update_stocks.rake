@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :stocks do
   desc 'Auto update stocks'
 

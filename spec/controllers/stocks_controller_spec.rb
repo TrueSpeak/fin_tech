@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe StocksController, type: :controller do
   let!(:user) { create(:user) }
 
-  describe "GET #show" do
+  describe 'GET #show' do
     let!(:stock) { create(:stock) }
-    context "when guest tries to get show stock" do
+    context 'when guest tries to get show stock' do
       before do
         get :show, params: { id: stock.id }
       end
@@ -15,7 +17,7 @@ RSpec.describe StocksController, type: :controller do
       end
     end
 
-    context "when user tries to get show stock" do
+    context 'when user tries to get show stock' do
       before do
         CnbcStocksParser.new('AAPL').call
         login(user)
@@ -28,10 +30,10 @@ RSpec.describe StocksController, type: :controller do
     end
   end
 
-  describe "GET #index" do
+  describe 'GET #index' do
     let!(:stocks) { create_list(:stock, 3) }
 
-    context "when guest tries to get index stocks" do
+    context 'when guest tries to get index stocks' do
       before do
         get :index
       end
@@ -41,7 +43,7 @@ RSpec.describe StocksController, type: :controller do
       end
     end
 
-    context "when authenticated user tries to get index stocks" do
+    context 'when authenticated user tries to get index stocks' do
       before do
         login(user)
         get :index

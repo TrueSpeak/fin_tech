@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe CnbcStocksParser do
@@ -40,8 +42,8 @@ RSpec.describe CnbcStocksParser do
     end
 
     it 'price with parsed attributes' do
-      expect(Price.last.attributes.except('id', 'created_at', 'updated_at')).
-        to eq(price_values.merge(stock_id: Stock.last.id).stringify_keys)
+      expect(Price.last.attributes.except('id', 'created_at', 'updated_at'))
+        .to eq(price_values.merge(stock_id: Stock.last.id).stringify_keys)
     end
   end
 

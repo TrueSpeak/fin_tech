@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :stock do
     ticker { Faker::Number.number.to_s }

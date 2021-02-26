@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 class CnbcStocksParser
   attr_reader :ticker, :stock_values, :current_price
 
   def initialize(ticker)
-    if Rails.env.include?('development') || Rails.env.include?('production')
-      doc = Nokogiri::HTML(RestClient.get("https://www.cnbc.com/quotes/#{ticker}"))
-    else
-      doc = Nokogiri::HTML(File.open("spec/files/#{ticker}.html"))
-    end
+    doc = if Rails.env.include?('development') || Rails.env.include?('production')
+            Nokogiri::HTML(RestClient.get("https://www.cnbc.com/quotes/#{ticker}"))
+          else
+            Nokogiri::HTML(File.open("spec/files/#{ticker}.html"))
+          end
     @ticker = ticker
-    @stock_values = doc.search("li.Summary-stat")
-    @current_price = doc.search("span.QuoteStrip-lastPrice")[0].children.text
+    @stock_values = doc.search('li.Summary-stat')
+    @current_price = doc.search('span.QuoteStrip-lastPrice')[0].children.text
   end
 
   def call
@@ -29,7 +31,7 @@ class CnbcStocksParser
       market_capitalization: stock_values[8].children[1].children.text,
       size: stock_values[9].children[1].children.text,
       dividends: stock_values[11].children[1].children.text,
-      change_per_year: stock_values[14].children[1].children.text,
+      change_per_year: stock_values[14].children[1].children.text
     )
   end
 

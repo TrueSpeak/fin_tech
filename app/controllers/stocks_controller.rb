@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class StocksController < ApplicationController
-  before_action :authenticate?
+  before_action :authenticate!
 
   def index
     @stocks = Stock.all
